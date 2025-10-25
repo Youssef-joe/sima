@@ -1,0 +1,1 @@
+<section class='card'><h2>الشهادة (v4)</h2><p>استخدم API مباشرةً لإظهار PDF.</p></section>

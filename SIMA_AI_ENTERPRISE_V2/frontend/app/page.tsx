@@ -1,0 +1,1 @@
+<section class='card'><h2>مرحبًا بك في SIMA AI</h2><p>منصة الاعتماد المعماري السعودي.</p></section>

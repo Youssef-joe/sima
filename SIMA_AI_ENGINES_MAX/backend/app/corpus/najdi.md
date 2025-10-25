@@ -1,0 +1,1 @@
+Najdi: WWR ~10-25%, light sand tones (RAL 1015), small aligned openings, triangular bands and crenellations.

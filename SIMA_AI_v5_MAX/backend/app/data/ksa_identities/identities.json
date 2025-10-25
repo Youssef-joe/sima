@@ -1,0 +1,71 @@
+{
+  "Central_Najdi": {
+    "title": "Central Najdi",
+    "wwr_range": [
+      10,
+      25
+    ],
+    "height_to_width_ratio": [
+      1.2,
+      2.7
+    ],
+    "colors_ral": [
+      "RAL 1015",
+      "RAL 7032",
+      "RAL 7040",
+      "RAL 9010"
+    ],
+    "key_features": [
+      "triangular_bands",
+      "crenellation",
+      "small_openings",
+      "projecting_turmah",
+      "asymmetry"
+    ]
+  },
+  "Northern_Najdi": {
+    "title": "Northern Najdi",
+    "wwr_range": [
+      10,
+      20
+    ],
+    "height_to_width_ratio": [
+      1.3,
+      2.6
+    ],
+    "colors_ral": [
+      "RAL 9002",
+      "RAL 7001",
+      "RAL 7032",
+      "RAL 1001"
+    ],
+    "key_features": [
+      "corner_crenellation",
+      "triangular_bands_simple",
+      "stone_lower_base",
+      "timber_shutters"
+    ]
+  },
+  "Hejazi_Coast": {
+    "title": "Hejazi Coast",
+    "wwr_range": [
+      30,
+      60
+    ],
+    "height_to_width_ratio": [
+      1.2,
+      1.8
+    ],
+    "colors_ral": [
+      "White",
+      "Timber_Tones",
+      "Blue_Accents"
+    ],
+    "key_features": [
+      "roshan",
+      "mashrabiya",
+      "screens_balconies",
+      "tripartite_facade"
+    ]
+  }
+}

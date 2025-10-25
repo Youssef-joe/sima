@@ -1,0 +1,1 @@
+Saudi architecture identities include Najdi (triangular bands, crenellation, light RAL tones) and Hejazi (Roshan/Mashrabiya, timber).

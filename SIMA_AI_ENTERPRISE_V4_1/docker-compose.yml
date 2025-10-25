@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./backend, dockerfile: Dockerfile }
+    ports: ["8080:8080"]
+    networks: [sima]
+  web:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    ports: ["3000:3000"]
+    networks: [sima]
+    depends_on: [ api, db ]
+  db:
+    image: pgvector/pgvector:pg16
+    environment: [ "POSTGRES_PASSWORD=postgres", "POSTGRES_USER=postgres", "POSTGRES_DB=sima" ]
+    ports: ["5432:5432"]
+    networks: [sima]
+  mosquitto_dev:
+    image: eclipse-mosquitto:2
+    ports: ["1883:1883"]
+    volumes: [ "./mosquitto/dev.conf:/mosquitto/config/mosquitto.conf" ]
+    networks: [sima]
+  ingestor:
+    image: python:3.11-slim
+    working_dir: /app
+    command: bash -lc "pip install paho-mqtt psycopg[binary]==3.2.1 && python app.py"
+    volumes: [ "./iot-ingestor:/app" ]
+    environment:
+      - MQTT_HOST=mosquitto_dev
+      - MQTT_PORT=1883
+      - DB_DSN=postgresql://postgres:postgres@db:5432/sima
+    depends_on: [ mosquitto_dev, db ]
+    networks: [sima]
+networks: { sima: {} }

@@ -1,0 +1,10 @@
+FROM golang:1.22-alpine AS build
+WORKDIR /src
+COPY gateway/main.go .
+RUN go build -o /out/gw main.go
+FROM alpine:3.19
+WORKDIR /app
+COPY --from=build /out/gw /app/gw
+EXPOSE 8081
+ENV API_URL=http://api:8080
+CMD ["/app/gw"]

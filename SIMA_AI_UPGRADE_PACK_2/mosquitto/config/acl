@@ -1,0 +1,4 @@
+user sima_ingestor
+topic readwrite sensors/#
+user sima_device
+topic write sensors/#

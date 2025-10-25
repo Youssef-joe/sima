@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    restart: unless-stopped
+    volumes:
+      - ./mosquitto/conf/secure.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/certs:/mosquitto/certs
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    ports:
+      - "8883:8883"
+  iot-ingestor:
+    build: ./iot/ingestor
+    environment:
+      - DB_DSN=${DB_DSN}
+      - MQTT_BROKER=mosquitto
+      - MQTT_PORT=8883
+      - MQTT_USER=sima_ingestor
+      - MQTT_PASS=changeme
+      - MQTT_CA=/mosquitto/certs/ca.crt
+    depends_on:
+      - mosquitto

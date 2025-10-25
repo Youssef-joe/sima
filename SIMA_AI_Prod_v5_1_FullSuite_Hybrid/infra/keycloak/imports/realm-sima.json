@@ -1,0 +1,35 @@
+{
+  "realm": "sima",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "authority"
+      },
+      {
+        "name": "consultant"
+      },
+      {
+        "name": "client"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "sima-frontend",
+      "publicClient": true,
+      "redirectUris": [
+        "https://*/",
+        "http://*/"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    },
+    {
+      "clientId": "sima-backend",
+      "publicClient": false,
+      "bearerOnly": true
+    }
+  ]
+}

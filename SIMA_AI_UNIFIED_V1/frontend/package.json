@@ -1,0 +1,20 @@
+{
+  "name": "sima-ai-unified",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "three": "0.160.0",
+    "@react-three/fiber": "8.15.18",
+    "@react-three/drei": "9.97.3",
+    "web-ifc": "0.0.47",
+    "web-ifc-three": "0.0.125",
+    "tailwindcss": "3.4.1",
+    "postcss": "8.4.33",
+    "autoprefixer": "10.4.17"
+  }
+}

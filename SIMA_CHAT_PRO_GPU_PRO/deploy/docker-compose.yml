@@ -1,0 +1,77 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./, dockerfile: backend/Dockerfile.api }
+    container_name: sima-gpu-api
+    ports: ["8080:8080"]
+    env_file: [backend/.env]
+    depends_on:
+      - vector-db
+    healthcheck:
+      test: ["CMD-SHELL","wget -qO- http://localhost:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks: [sima_net]
+
+  llm:
+    build: { context: ./, dockerfile: llm/Dockerfile.llm }
+    container_name: sima-local-llm
+    ports: ["7070:7070"]
+    networks: [sima_net]
+
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: sima-vllm
+    environment:
+      - VLLM_ARGS=--model ${MODEL_ID:-meta-llama/Llama-3.1-8B-Instruct} --max-model-len 8192 --dtype auto
+    command: ["bash","-lc","python -m vllm.entrypoints.openai.api_server $VLLM_ARGS"]
+    ports: ["8000:8000"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks: [sima_net]
+
+  cloud-relay:
+    build: { context: ./, dockerfile: cloud-relay/Dockerfile.relay }
+    container_name: sima-cloud-relay
+    environment:
+      - OPENAI_URL=
+      - OPENAI_KEY=
+    ports: ["9090:9090"]
+    networks: [sima_net]
+
+  vector-db:
+    image: pgvector/pgvector:pg16
+    container_name: sima-vector-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pgdb
+    ports: ["5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [sima_net]
+
+  web:
+    build: { context: ./, dockerfile: frontend/Dockerfile.web }
+    container_name: sima-gpu-web
+    environment: [ "NEXT_PUBLIC_API_BASE=http://api:8080" ]
+    depends_on: { api: { condition: service_started } }
+    ports: ["3000:3000"]
+    networks: [sima_net]
+
+networks:
+  sima_net: {}
+
+volumes:
+  pgdata: {}

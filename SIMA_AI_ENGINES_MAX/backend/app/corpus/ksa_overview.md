@@ -1,0 +1,1 @@
+Saudi identities span 19 regional characters; Najdi emphasizes modest window-to-wall ratio and crenellation.

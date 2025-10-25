@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "title": "SIMA API \u2014 Metrics",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Requests",
+      "targets": [
+        {
+          "expr": "sum(sima_requests_total)"
+        }
+      ]
+    },
+    {
+      "type": "graph",
+      "title": "Latency",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(sima_request_latency_seconds_bucket[5m])) by (le))"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "version": 1
+}

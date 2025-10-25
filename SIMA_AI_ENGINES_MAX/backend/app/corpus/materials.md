@@ -1,0 +1,1 @@
+Materials: clay tile, plaster beige (RAL 1013), stone panel, timber slats; insulation XPS and rockwool.

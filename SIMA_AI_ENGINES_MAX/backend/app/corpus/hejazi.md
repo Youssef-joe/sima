@@ -1,0 +1,1 @@
+Hejazi: Roshan/Mashrabiya, white plaster, timber accents; higher WWR possible on shaded facades.

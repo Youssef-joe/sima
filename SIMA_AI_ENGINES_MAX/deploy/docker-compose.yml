@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./, dockerfile: backend/Dockerfile.api }
+    container_name: sima-api
+    ports: ["8080:8080"]
+    env_file: [backend/.env]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks: [sima_net]
+
+  web:
+    build: { context: ./, dockerfile: frontend/Dockerfile.web }
+    container_name: sima-web
+    environment: [ "NEXT_PUBLIC_API_BASE=http://api:8080" ]
+    depends_on: { api: { condition: service_healthy } }
+    ports: ["3000:3000"]
+    networks: [sima_net]
+
+  trainer:
+    build: { context: ./, dockerfile: trainer/Dockerfile.trainer }
+    container_name: sima-trainer
+    ports: ["8090:8090"]
+    networks: [sima_net]
+
+  gateway:
+    build: { context: ./, dockerfile: gateway/Dockerfile.gateway }
+    container_name: sima-gateway
+    environment: [ "API_URL=http://api:8080" ]
+    ports: ["8081:8081"]
+    depends_on: { api: { condition: service_healthy } }
+    networks: [sima_net]
+
+networks:
+  sima_net: {}

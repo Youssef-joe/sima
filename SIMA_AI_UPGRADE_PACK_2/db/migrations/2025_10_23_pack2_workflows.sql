@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS workflow_instances(id UUID PRIMARY KEY, project_id UUID, stage TEXT, status TEXT, created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now());
+CREATE TABLE IF NOT EXISTS workflow_tasks(id UUID PRIMARY KEY, instance_id UUID, name TEXT, role TEXT, status TEXT, assignee UUID NULL, due_at TIMESTAMPTZ NULL, meta JSONB DEFAULT '{}', created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now());

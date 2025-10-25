@@ -1,0 +1,17 @@
+{
+  "name": "sima-ai-v6-frontend",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "next dev", "build": "next build", "start": "next start" },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "three": "^0.160.0",
+    "@react-three/fiber": "^8.15.13",
+    "@react-three/drei": "^9.88.16",
+    "axios": "^1.7.2",
+    "zustand": "^4.5.2"
+  }
+}

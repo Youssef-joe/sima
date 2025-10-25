@@ -1,0 +1,1 @@
+Materials catalog includes clay tile, plaster beige RAL 1013, stone panel RAL 1015, timber slats, XPS and rockwool insulation.

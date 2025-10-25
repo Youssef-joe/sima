@@ -1,0 +1,1 @@
+export default function Home(){return(<main style={{padding:20}}><h1>SIMA v1 — FOUNDATION</h1></main>);}

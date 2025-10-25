@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./backend, dockerfile: Dockerfile }
+    container_name: sima-api
+    ports: ["8080:8080"]
+    networks: [sima]
+    environment:
+      - DB_DSN=postgresql://postgres:postgres@db:5432/sima
+      - VLLM_URL=${VLLM_URL}
+      - VLLM_API_KEY=${VLLM_API_KEY}
+  web:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    container_name: sima-web
+    ports: ["3000:3000"]
+    networks: [sima]
+    depends_on: [ api, db ]
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: sima-db
+    environment: [ "POSTGRES_PASSWORD=postgres", "POSTGRES_USER=postgres", "POSTGRES_DB=sima" ]
+    ports: ["5432:5432"]
+    networks: [sima]
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: sima-prom
+    ports: ["9090:9090"]
+    volumes: [ "./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml" ]
+    networks: [sima]
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: sima-grafana
+    ports: ["3001:3000"]
+    volumes: [ "./monitoring/grafana/provisioning:/etc/grafana/provisioning" ]
+    networks: [sima]
+networks: { sima: {} }

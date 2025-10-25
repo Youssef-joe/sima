@@ -1,0 +1,1 @@
+Najdi: WWR 10-25%, light RAL tones, triangular bands, crenellation. Hejazi: Roshan/Mashrabiya, white plaster, timber accents.

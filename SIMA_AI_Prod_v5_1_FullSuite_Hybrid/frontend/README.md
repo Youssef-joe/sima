@@ -1,0 +1,1 @@
+# Placeholder Next.js app — ضع مشروع الواجهة هنا

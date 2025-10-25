@@ -1,0 +1,1 @@
+Eco: prioritize shading, cross-ventilation, low-U insulation, and earth-tone materials with lower embodied carbon.

@@ -1,0 +1,1 @@
+export default function Home(){return(<main style={{padding:20}}><h1>SIMA v8 — URBAN_INTEL</h1></main>);}

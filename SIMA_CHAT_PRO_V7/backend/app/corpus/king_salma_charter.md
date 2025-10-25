@@ -1,0 +1,1 @@
+King Salman Charter emphasizes context, continuity, human scale, and authenticity in architecture and urbanism.

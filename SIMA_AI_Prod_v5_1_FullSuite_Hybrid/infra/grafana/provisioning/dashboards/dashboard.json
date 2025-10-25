@@ -1,0 +1,19 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "panels": [
+    {
+      "type": "stat",
+      "title": "API Up",
+      "targets": [
+        {
+          "expr": "up{job='api'}"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 36,
+  "title": "Sima AI — Overview",
+  "version": 1
+}

@@ -1,0 +1,1 @@
+Use vLLM official image vllm/vllm-openai; set MODEL_ID and NVIDIA GPU via Docker Compose.

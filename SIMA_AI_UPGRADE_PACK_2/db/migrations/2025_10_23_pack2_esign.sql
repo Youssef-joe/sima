@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS esign_envelopes(id UUID PRIMARY KEY, provider TEXT, project_id UUID, status TEXT, meta JSONB DEFAULT '{}', created_at TIMESTAMPTZ DEFAULT now(), updated_at TIMESTAMPTZ DEFAULT now());

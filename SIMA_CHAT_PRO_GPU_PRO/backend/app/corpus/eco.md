@@ -1,0 +1,1 @@
+Sustainability: cross-ventilation, shading, low U-values, and low embodied carbon materials such as plaster and timber slats.
