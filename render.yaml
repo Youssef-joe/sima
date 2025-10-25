@@ -1,0 +1,26 @@
+services:
+  # Backend API Service
+  - type: web
+    name: sima-ai-backend
+    env: docker
+    plan: starter
+    rootDir: SIMA_AI_UNIFIED_V1p1/backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: "*"
+    
+  # Frontend Web Service  
+  - type: web
+    name: sima-ai-frontend
+    env: docker
+    plan: starter
+    rootDir: SIMA_AI_UNIFIED_V1p1/frontend
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://sima-ai-backend.onrender.com
