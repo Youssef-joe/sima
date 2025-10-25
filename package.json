@@ -2,7 +2,7 @@
   "name": "sima-ai-monorepo",
   "version": "1.0.0",
   "scripts": {
-    "install:frontend": "cd SIMA_AI_UNIFIED_V1p1/frontend && npm install",
+    "install:frontend": "cd SIMA_AI_UNIFIED_V1p1/frontend && npm install --legacy-peer-deps",
     "build:frontend": "cd SIMA_AI_UNIFIED_V1p1/frontend && npm run build",
     "start:frontend": "cd SIMA_AI_UNIFIED_V1p1/frontend && npm start",
     "install": "npm run install:frontend",
