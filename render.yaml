@@ -14,11 +14,9 @@ services:
   # Frontend Web Service  
   - type: web
     name: sima-ai-frontend
-    env: node
+    env: docker
     plan: starter
     rootDir: SIMA_AI_UNIFIED_V1p1/frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm start
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: https://sima-ai-backend.onrender.com
