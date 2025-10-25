@@ -1,0 +1,9 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+:root { color-scheme: light; }
+html.light body { background: #f7f8fa; color: #0a0a0a; }
+html.dark body { background: #0b0b0b; color: #eaeaea; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; }
+html.dark .card { background: #111; border-color: #222; }
+.btn { padding: 10px 14px; border-radius: 10px; background: #0A6847; color:white; }
+.sidebar { width: 320px; }

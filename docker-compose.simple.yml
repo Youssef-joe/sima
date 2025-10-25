@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./backend, dockerfile: Dockerfile.simple }
+    container_name: sima-api
+    ports: ["8082:8080"]
+    env_file: ["backend/.env"]
+    environment:
+      - GEMINI_API_KEY=AIzaSyCiWY2aDmJti4YZxwj5zOYO8i9HcINh7dM
+    depends_on: [ db ]
+    networks: [sima_net]
+    healthcheck:
+      test: ["CMD-SHELL","wget -qO- http://localhost:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    container_name: sima-web
+    environment: 
+      - "NEXT_PUBLIC_API_BASE=http://localhost:8082"
+      - "NODE_ENV=development"
+    depends_on: [ api ]
+    ports: ["3000:3000"]
+    networks: [sima_net]
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: sima-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sima
+    ports: ["5432:5432"]
+    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+    networks: [sima_net]
+
+networks:
+  sima_net: {}
+
+volumes:
+  pgdata: {}

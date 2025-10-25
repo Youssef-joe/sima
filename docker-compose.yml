@@ -1,0 +1,81 @@
+version: "3.9"
+services:
+  api:
+    build: { context: ./backend, dockerfile: Dockerfile }
+    container_name: sima-api
+    ports: ["8080:8080"]
+    env_file: [backend/.env]
+    depends_on: [ db, mosquitto ]
+    networks: [sima_net]
+    volumes:
+      - ./mqtt/certs:/certs:ro
+    healthcheck:
+      test: ["CMD-SHELL","wget -qO- http://localhost:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    container_name: sima-web
+    environment: [ "NEXT_PUBLIC_API_BASE=http://api:8080" ]
+    depends_on: [ api ]
+    ports: ["3000:3000"]
+    networks: [sima_net]
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: sima-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sima
+    ports: ["5432:5432"]
+    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+    networks: [sima_net]
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: sima-mqtt
+    ports: ["1883:1883","8883:8883"]
+    volumes:
+      - ./mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mqtt/passwords:/mosquitto/config/passwords
+      - ./mqtt/acls:/mosquitto/config/acls
+      - ./mqtt/certs:/mosquitto/certs
+    networks: [sima_net]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: sima-prom
+    ports: ["9090:9090"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks: [sima_net]
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: sima-grafana
+    ports: ["3001:3000"]
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    networks: [sima_net]
+
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: sima-vllm
+    command: ["--model","meta-llama/Llama-3.1-8B-Instruct","--served-model-name","sima-llama"]
+    ports: ["8000:8000"]
+    networks: [sima_net]
+    # GPU example:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: ["gpu"]
+
+networks:
+  sima_net: {}
+
+volumes:
+  pgdata: {}
